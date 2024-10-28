@@ -1,0 +1,8 @@
+google-generativeai
+speechrecognition
+langdetect
+PySide6
+requests
+gTTS
+qtawesome
+qt-material
