@@ -26,13 +26,11 @@ import logging
 import qtawesome as qta
 from qt_material import apply_stylesheet
 
+# Set up basic logging configuration to save logs to a specific file
 logging.basicConfig(
-    level=logging.DEBUG,
-    format='%(asctime)s - %(levelname)s - %(message)s',
-    handlers=[
-        logging.FileHandler("gemini_app.log"),
-        logging.StreamHandler()
-    ]
+    filename="gemini_app.log",  # Log file name
+    level=logging.DEBUG,         # Log level
+    format='%(asctime)s - %(levelname)s - %(message)s'  # Log format
 )
 
 class AudioController(QObject):
@@ -858,7 +856,10 @@ def main(as_dockable=False):
     
     # Initialize the main application window
     chat_app = GeminiApp(as_dockable)
-    icon_path = os.path.join(os.path.abspath("."), "spark.svg")
+    if getattr(sys, 'frozen', False):  # Check if the app is frozen (e.g., by PyInstaller)
+        icon_path = os.path.join(sys._MEIPASS, "spark.svg")
+    else:
+        icon_path = os.path.join(os.path.abspath("."), "spark.svg")      
     app.setWindowIcon(QIcon(icon_path))
     
     if as_dockable:
